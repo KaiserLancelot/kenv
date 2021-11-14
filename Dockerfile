@@ -58,12 +58,12 @@ RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
 
 USER kenv:kenv
 
-RUN mkdir dependencies && \
+RUN sudo mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
+    sudo curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
     -o kpkg.deb && \
-    dpkg -i kpkg.deb && \
+    sudo dpkg -i kpkg.deb && \
     kpkg install spdlog && \
-    ldconfig && \
+    sudo ldconfig && \
     cd .. && \
-    rm -rf dependencies
+    sudo rm -rf dependencies
