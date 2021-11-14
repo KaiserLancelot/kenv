@@ -22,13 +22,8 @@ RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN echo -e "#!/bin/bash \
-    exec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"$@\" \
-    " | tee /usr/bin/clang && chmod +x /usr/bin/clang
-
-RUN echo -e "#!/bin/bash \
-    exec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"$@\" \
-    " | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
+RUN echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
+    echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
@@ -64,3 +59,6 @@ RUN cd /home/kenv && \
     sudo ldconfig && \
     cd .. && \
     rm -rf dependencies
+
+ENV ASAN_OPTIONS=detect_stack_use_after_return=1
+ENV UBSAN_OPTIONS=print_stacktrace=1
