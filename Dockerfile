@@ -22,19 +22,9 @@ RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mv /usr/local/bin/* /usr/bin && \
-    cp -r /usr/local/include/* /usr/include && \
-    rm -rf /usr/local/include/* && \
-    cp -r /usr/local/lib/* /usr/lib && \
-    rm -rf /usr/local/lib/* && \
-    cp -r /usr/local/lib64/* /usr/lib && \
-    rm -rf /usr/local/lib64/* && \
-    cp -r /usr/local/libexec/* /usr/lib  && \
-    rm -rf /usr/local/libexec/* && \
-    ldconfig && \
-    ln -s /usr/bin/gcc /usr/bin/gcc-11 && \
-    ln -s /usr/bin/g++ /usr/bin/g++-11 && \
-    ln -s /usr/bin/gcov /usr/bin/gcov-11 && \
+RUN ln -s /usr/bin/local/gcc /usr/bin/gcc-11 && \
+    ln -s /usr/bin/local/g++ /usr/bin/g++-11 && \
+    ln -s /usr/bin/local/gcov /usr/bin/gcov-11 && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 400 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 400 && \
     update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 400 && \
@@ -58,12 +48,13 @@ RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
 
 USER kenv:kenv
 
-RUN sudo mkdir dependencies && \
+RUN cd /home/kenv && \
+    mkdir dependencies && \
     cd dependencies && \
-    sudo curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
     -o kpkg.deb && \
-    sudo dpkg -i kpkg.deb && \
-    sudo kpkg install spdlog && \
-    sudo ldconfig && \
+    dpkg -i kpkg.deb && \
+    kpkg install spdlog && \
+    ldconfig && \
     cd .. && \
-    sudo rm -rf dependencies
+    rm -rf dependencies
