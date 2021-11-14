@@ -22,9 +22,9 @@ RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN ln -s /usr/bin/local/gcc /usr/bin/gcc-11 && \
-    ln -s /usr/bin/local/g++ /usr/bin/g++-11 && \
-    ln -s /usr/bin/local/gcov /usr/bin/gcov-11 && \
+RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
+    ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
+    ln -s /usr/local/bin/gcov /usr/bin/gcov-11 && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 400 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 400 && \
     update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 400 && \
