@@ -1,6 +1,6 @@
 FROM gcc:11.2.0
 
-RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+# RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -22,7 +22,9 @@ RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 400 && \
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-11 400
+    update-alternatives --install /usr/bin/g++ g++ /usr/local/bin/g++-11 400 && \
+    update-alternatives --install /usr/bin/gcov gcov /usr/local/bin/gcov-11 400 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-13 400 && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-13 400 && \
     update-alternatives --install /usr/bin/lld lld /usr/bin/lld-13 400 && \
