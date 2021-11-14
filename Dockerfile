@@ -22,8 +22,7 @@ RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN cp -r /usr/local/bin/* /usr/bin && \
-    rm -rf /usr/local/bin/* && \
+RUN mv /usr/local/bin/* /usr/bin && \
     cp -r /usr/local/include/* /usr/include && \
     rm -rf /usr/local/include/* && \
     cp -r /usr/local/lib/* /usr/lib && \
