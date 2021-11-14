@@ -13,6 +13,8 @@ RUN apt-get update && \
     autotools-dev autopoint libtool m4 tcl re2c flex bison \
     pkg-config ca-certificates
 
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"
+
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
     ./llvm.sh 13 && \
@@ -43,6 +45,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 400 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400
 
-RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv
-RUN useradd -m -U kenv
+RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
+    useradd -m -U kenv
+
 USER kenv:kenv
