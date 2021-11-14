@@ -1,8 +1,7 @@
 FROM gcc:11.2.0
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && \
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y python3 python-is-python3 sudo \
     git wget curl lsb-release software-properties-common apt-utils \
@@ -16,7 +15,8 @@ RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     ./llvm.sh 13 && \
     rm llvm.sh
 
-RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
@@ -60,5 +60,6 @@ RUN cd /home/kenv && \
     cd .. && \
     rm -rf dependencies
 
-ENV ASAN_OPTIONS=detect_stack_use_after_return=1
-ENV UBSAN_OPTIONS=print_stacktrace=1
+ENV CMAKE_GENERATOR Ninja
+ENV ASAN_OPTIONS detect_stack_use_after_return=1
+ENV UBSAN_OPTIONS print_stacktrace=1
