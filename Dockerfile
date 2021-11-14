@@ -1,7 +1,5 @@
 FROM gcc:11.2.0
 
-# RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
@@ -22,9 +20,6 @@ RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
-    echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
-
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
     ln -s /usr/local/bin/gcov /usr/bin/gcov-11 && \
@@ -42,7 +37,9 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/llvm-symbolizer llvm-symbolizer /usr/bin/llvm-symbolizer-13 400 && \
     update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-13 400 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 400 && \
-    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400
+    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400 && \
+    echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
+    echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
 RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
     useradd -m -U kenv
@@ -55,7 +52,10 @@ RUN cd /home/kenv && \
     curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
     -o kpkg.deb && \
     sudo dpkg -i kpkg.deb && \
-    kpkg install spdlog && \
+    kpkg install cmake ninja doxygen lcov && \
+    kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
+    openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
+    aria2 semver gsl-lite dbg-macro scope_guard argon2 && \
     sudo ldconfig && \
     cd .. && \
     rm -rf dependencies
