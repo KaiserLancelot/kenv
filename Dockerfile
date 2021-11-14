@@ -63,7 +63,7 @@ RUN sudo mkdir dependencies && \
     sudo curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
     -o kpkg.deb && \
     sudo dpkg -i kpkg.deb && \
-    kpkg install spdlog && \
+    sudo kpkg install spdlog && \
     sudo ldconfig && \
     cd .. && \
     sudo rm -rf dependencies
