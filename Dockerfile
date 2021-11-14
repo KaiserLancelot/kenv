@@ -52,7 +52,8 @@ RUN mv /usr/local/bin/* /usr/bin && \
     update-alternatives --install /usr/bin/llvm-symbolizer llvm-symbolizer /usr/bin/llvm-symbolizer-13 400 && \
     update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-13 400 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 400 && \
-    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400
+    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400 && \
+    ldconfig
 
 RUN mkdir dependencies && \
     cd dependencies && \
