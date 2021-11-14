@@ -27,12 +27,11 @@ RUN mv /usr/local/bin/* /usr/bin && \
     rm -rf /usr/local/include/* && \
     cp -r /usr/local/lib/* /usr/lib && \
     rm -rf /usr/local/lib/* && \
-    cp -r /usr/local/lib64/* /usr/lib32 && \
+    cp -r /usr/local/lib64/* /usr/lib && \
     rm -rf /usr/local/lib64/* && \
-    cp -r /usr/local/libexec/* /usr/libexec  && \
+    cp -r /usr/local/libexec/* /usr/lib  && \
     rm -rf /usr/local/libexec/* && \
-    cp -r /usr/local/share/* /usr/share  && \
-    rm -rf /usr/local/share/* && \
+    ldconfig && \
     ln -s /usr/bin/gcc /usr/bin/gcc-11 && \
     ln -s /usr/bin/g++ /usr/bin/g++-11 && \
     ln -s /usr/bin/gcov /usr/bin/gcov-11 && \
@@ -52,8 +51,12 @@ RUN mv /usr/local/bin/* /usr/bin && \
     update-alternatives --install /usr/bin/llvm-symbolizer llvm-symbolizer /usr/bin/llvm-symbolizer-13 400 && \
     update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-13 400 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 400 && \
-    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400 && \
-    ldconfig
+    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400
+
+RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
+    useradd -m -U kenv
+
+USER kenv:kenv
 
 RUN mkdir dependencies && \
     cd dependencies && \
@@ -64,8 +67,3 @@ RUN mkdir dependencies && \
     ldconfig && \
     cd .. && \
     rm -rf dependencies
-
-RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
-    useradd -m -U kenv
-
-USER kenv:kenv
