@@ -13,8 +13,6 @@ RUN apt-get update && \
     autotools-dev autopoint libtool m4 tcl re2c flex bison \
     pkg-config ca-certificates
 
-RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"
-
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
     ./llvm.sh 13 && \
@@ -24,9 +22,21 @@ RUN apt-get install -y lldb-13 lld-13 clang-tidy-13 \
     clang-format-13 clangd-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
-RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
-    ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
-    ln -s /usr/local/bin/gcov /usr/bin/gcov-11 && \
+RUN cp -r /usr/local/bin/* /usr/bin && \
+    rm -rf /usr/local/bin/* && \
+    cp -r /usr/local/include/* /usr/include && \
+    rm -rf /usr/local/include/* && \
+    cp -r /usr/local/lib/* /usr/lib && \
+    rm -rf /usr/local/lib/* && \
+    cp -r /usr/local/lib64/* /usr/lib32 && \
+    rm -rf /usr/local/lib64/* && \
+    cp -r /usr/local/libexec/* /usr/libexec  && \
+    rm -rf /usr/local/libexec/* && \
+    cp -r /usr/local/share/* /usr/share  && \
+    rm -rf /usr/local/share/* && \
+    ln -s /usr/bin/gcc /usr/bin/gcc-11 && \
+    ln -s /usr/bin/g++ /usr/bin/g++-11 && \
+    ln -s /usr/bin/gcov /usr/bin/gcov-11 && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 400 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 400 && \
     update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 400 && \
@@ -44,6 +54,16 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-13 400 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 400 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400
+
+RUN mkdir dependencies && \
+    cd dependencies && \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
+    -o kpkg.deb && \
+    dpkg -i kpkg.deb && \
+    kpkg install spdlog && \
+    ldconfig && \
+    cd .. && \
+    rm -rf dependencies
 
 RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
     useradd -m -U kenv
