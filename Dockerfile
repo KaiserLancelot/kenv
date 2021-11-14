@@ -55,6 +55,6 @@ RUN cd /home/kenv && \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install spdlog && \
-    ldconfig && \
+    sudo ldconfig && \
     cd .. && \
     rm -rf dependencies
