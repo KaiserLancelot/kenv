@@ -31,4 +31,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: kenv:latest
+          tags: kaiserlancelot/kenv:latest
