@@ -3,7 +3,7 @@ FROM gcc:11.2.0
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y python3 python-is-python3 sudo \
+    apt-get install -y python3 python-is-python3 \
     git wget curl lsb-release software-properties-common apt-utils \
     binutils build-essential valgrind gdb \
     make cmake autoconf automake \
@@ -41,24 +41,19 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
-    useradd -m -U kenv
-
-USER kenv:kenv
-
 RUN cd /home/kenv && \
     mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
-    -o kpkg.deb && \
-    sudo dpkg -i kpkg.deb && \
+#    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
+#    -o kpkg.deb && \
+#    dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    aria2 semver gsl-lite dbg-macro scope_guard argon2 && \
-    sudo ldconfig && \
+    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson && \
+    ldconfig && \
     cd .. && \
-    sudo rm -rf dependencies
+    rm -rf dependencies
 
 ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1
