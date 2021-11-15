@@ -38,8 +38,8 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-13 400 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 400 && \
     update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400 && \
-    echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
-    echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
+    echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
+    echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
 RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
     useradd -m -U kenv
