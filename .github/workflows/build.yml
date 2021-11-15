@@ -13,9 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Temp
-        run: sudo dpkg -i kpkg-0.8.1-Linux.deb
-
       # https://github.com/docker/build-push-action
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1

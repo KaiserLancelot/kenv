@@ -44,9 +44,9 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 RUN cd /home/kenv && \
     mkdir dependencies && \
     cd dependencies && \
-#    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-v0.8.0-ubuntu-20.04.deb \
-#    -o kpkg.deb && \
-#    dpkg -i kpkg.deb && \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-0.8.1-Linux.deb \
+    -o kpkg.deb && \
+    dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
