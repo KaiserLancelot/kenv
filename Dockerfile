@@ -58,7 +58,7 @@ RUN cd /home/kenv && \
     aria2 semver gsl-lite dbg-macro scope_guard argon2 && \
     sudo ldconfig && \
     cd .. && \
-    rm -rf dependencies
+    sudo rm -rf dependencies
 
 ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1
