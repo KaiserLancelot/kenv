@@ -41,8 +41,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN cd /home/kenv && \
-    mkdir dependencies && \
+RUN mkdir dependencies && \
     cd dependencies && \
     curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.0/kpkg-0.8.1-Linux.deb \
     -o kpkg.deb && \
