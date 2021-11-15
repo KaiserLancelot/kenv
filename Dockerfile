@@ -4,8 +4,8 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y python3 python-is-python3 \
-    git wget curl lsb-release software-properties-common apt-utils \
-    binutils build-essential valgrind gdb \
+    git curl lsb-release software-properties-common \
+    binutils build-essential valgrind \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl re2c flex bison \
     pkg-config ca-certificates
@@ -52,7 +52,8 @@ RUN mkdir dependencies && \
     aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson && \
     ldconfig && \
     cd .. && \
-    rm -rf dependencies
+    rm -rf dependencies && \
+    dpkg -r kpkg
 
 ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1
