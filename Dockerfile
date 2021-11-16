@@ -5,7 +5,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y upgrade && \
     apt-get install -y python3 python-is-python3 \
     git curl lsb-release software-properties-common \
-    locales binutils build-essential valgrind \
+    locales locales-all binutils build-essential valgrind \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl re2c flex bison \
     pkg-config ca-certificates
