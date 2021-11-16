@@ -16,8 +16,7 @@ RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     rm llvm.sh
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y lldb-13 lld-13 clang-tidy-13 \
-    clang-format-13 clangd-13 llvm-13 && \
+    apt-get install -y lld-13 clang-tidy-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
@@ -35,9 +34,6 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/llvm-profdata llvm-profdata /usr/bin/llvm-profdata-13 400 && \
     update-alternatives --install /usr/bin/llvm-cov llvm-cov /usr/bin/llvm-cov-13 400 && \
     update-alternatives --install /usr/bin/llvm-symbolizer llvm-symbolizer /usr/bin/llvm-symbolizer-13 400 && \
-    update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-13 400 && \
-    update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-13 400 && \
-    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-13 400 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 

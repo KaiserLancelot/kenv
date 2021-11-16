@@ -4,9 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    # https://docs.github.com/cn/actions/reference/workflow-syntax-for-github-actions
-    # https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       # https://github.com/actions/checkout
