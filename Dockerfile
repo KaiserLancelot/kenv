@@ -5,7 +5,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y upgrade && \
     apt-get install -y python3 python-is-python3 \
     git curl lsb-release software-properties-common \
-    binutils build-essential valgrind \
+    locales locales-all binutils build-essential valgrind \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl re2c flex bison \
     pkg-config ca-certificates
@@ -50,6 +50,10 @@ RUN mkdir dependencies && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
 
 ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1
