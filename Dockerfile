@@ -39,7 +39,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.4/kpkg-0.8.4-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.6/kpkg-0.8.6-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
