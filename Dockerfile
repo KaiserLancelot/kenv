@@ -7,7 +7,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     git curl lsb-release software-properties-common \
     locales locales-all binutils build-essential valgrind \
     make cmake autoconf automake \
-    autotools-dev autopoint libtool m4 tcl re2c flex bison \
+    autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
     pkg-config ca-certificates
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
@@ -39,17 +39,24 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.6/kpkg-0.8.6-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.7/kpkg-0.8.7-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson && \
+    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson python && \
     ldconfig && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
+
+RUN python3 -m pip install nuitka fonttools[woff] && \
+    python3 -m nuitka --module --include-module=fontTools.subset \
+    --follow-imports --plugin-enable=pylint-warnings --remove-output --no-pyi-file \
+    --lto=yes --prefer-source-code --python-for-scons=/usr/local/bin/python3 font.py && \
+    mv font*.so /usr/local/lib/font.so && \
+    ldconfig
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
