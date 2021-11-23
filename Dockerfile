@@ -54,8 +54,8 @@ RUN mkdir dependencies && \
 RUN python3 -m pip install nuitka fonttools[woff] && \
     python3 -m nuitka --module --include-module=fontTools.subset \
     --follow-imports --plugin-enable=pylint-warnings --remove-output --no-pyi-file \
-    --lto=yes --prefer-source-code --python-for-scons=/usr/local/bin/python3 font.py && \
-    mv font*.so /usr/local/lib/font.so && \
+    --lto=yes --prefer-source-code --python-for-scons=/usr/local/bin/python3 font_tools.py && \
+    mv font_tools*.so /usr/local/lib/font_tools.so && \
     ldconfig
 
 ENV LC_ALL en_US.UTF-8
