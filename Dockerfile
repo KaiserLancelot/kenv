@@ -39,9 +39,10 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.8/kpkg-0.8.8-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.10/kpkg-0.8.10-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
+    kpkg install pyftsubset && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
@@ -50,9 +51,6 @@ RUN mkdir dependencies && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
-
-RUN python -m pip install --upgrade pip && \
-    python -m pip install nuitka fonttools[woff]
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
