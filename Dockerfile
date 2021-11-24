@@ -3,11 +3,11 @@ FROM gcc:11.2.0
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y python3 python-is-python3 \
-    git curl lsb-release software-properties-common \
-    locales locales-all binutils build-essential valgrind \
+    apt-get install -y python3 python3-pip python-is-python3 \
+    git curl lsb-release software-properties-common fuse \
+    locales locales-all binutils build-essential \
     make cmake autoconf automake \
-    autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
+    autotools-dev autopoint libtool m4 tcl re2c flex bison \
     pkg-config ca-certificates
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
@@ -45,13 +45,14 @@ RUN mkdir dependencies && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson python && \
-    ldconfig && \
-    kpkg install fonttools && \
+    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson && \
     ldconfig && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
+
+RUN python -m pip install --upgrade pip && \
+    python -m pip install nuitka fonttools[woff]
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
