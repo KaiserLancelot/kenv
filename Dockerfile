@@ -47,16 +47,11 @@ RUN mkdir dependencies && \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson python && \
     ldconfig && \
+    kpkg install fonttools && \
+    ldconfig && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
-
-RUN python3 -m pip install nuitka fonttools[woff] && \
-    python3 -m nuitka --module --include-module=fontTools.subset \
-    --follow-imports --plugin-enable=pylint-warnings --remove-output --no-pyi-file \
-    --lto=yes --prefer-source-code --python-for-scons=/usr/local/bin/python3 font_tools.py && \
-    mv font_tools*.so /usr/local/lib/font_tools.so && \
-    ldconfig
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
