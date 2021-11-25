@@ -51,8 +51,8 @@ RUN mkdir dependencies && \
     # FIXME
     curl -L https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage \
     -o appimagetool-x86_64.AppImage && \
-    mkdir -p /home/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
-    mv appimagetool-x86_64.AppImage /home/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
+    mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
+    mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
