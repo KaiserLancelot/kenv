@@ -53,6 +53,13 @@ RUN cd /home/kenv && \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson python && \
     sudo ldconfig && \
+    python3 -m pip install --upgrade pip && \
+    python3 -m pip install nuitka fonttools[woff] && \
+    # FIXME
+    curl -L https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage \
+        -o appimagetool-x86_64.AppImage && \
+    mkdir -p /home/kenv/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
+    mv appimagetool-x86_64.AppImage /home/kenv/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
     kpkg install pyftsubset && \
     cd .. && \
     rm -rf dependencies && \
