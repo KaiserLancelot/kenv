@@ -60,7 +60,7 @@ RUN cd /home/kenv && \
         -o appimagetool-x86_64.AppImage && \
     mkdir -p /home/kenv/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
     mv appimagetool-x86_64.AppImage /home/kenv/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
-    kpkg install pyftsubset && \
+    # kpkg install pyftsubset && \
     cd .. && \
     rm -rf dependencies && \
     sudo dpkg -r kpkg
