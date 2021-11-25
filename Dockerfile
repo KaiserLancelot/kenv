@@ -3,7 +3,7 @@ FROM gcc:11.2.0
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y python3 python-is-python3 \
+    apt-get install -y python3 python-is-python3 sudo \
     git curl lsb-release software-properties-common fuse \
     locales locales-all binutils build-essential \
     make cmake autoconf automake \
@@ -37,21 +37,26 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN mkdir dependencies && \
+RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
+    useradd -m -U kenv
+
+USER kenv:kenv
+
+RUN cd /home/kenv && \
+    mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.12/kpkg-0.8.12-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.11/kpkg-0.9.0-Linux.deb \
     -o kpkg.deb && \
-    dpkg -i kpkg.deb && \
-    kpkg install pyftsubset && \
+    sudo dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson python && \
-    ldconfig && \
+    sudo ldconfig && \
     kpkg install pyftsubset && \
     cd .. && \
     rm -rf dependencies && \
-    dpkg -r kpkg
+    sudo dpkg -r kpkg
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
