@@ -45,7 +45,7 @@ USER kenv:kenv
 RUN cd /home/kenv && \
     mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.11/kpkg-0.9.0-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.15/kpkg-0.8.15-Linux.deb \
     -o kpkg.deb && \
     sudo dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
