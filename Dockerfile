@@ -37,17 +37,11 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN echo kenv ALL=NOPASSWD: ALL > /etc/sudoers.d/kenv && \
-    useradd -m -U kenv
-
-USER kenv:kenv
-
-RUN cd /home/kenv && \
-    mkdir dependencies && \
+RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.8.15/kpkg-0.8.15-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.1/kpkg-0.9.1-Linux.deb \
     -o kpkg.deb && \
-    sudo dpkg -i kpkg.deb && \
+    dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
@@ -57,11 +51,11 @@ RUN cd /home/kenv && \
     # FIXME
     curl -L https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage \
     -o appimagetool-x86_64.AppImage && \
-    mkdir -p /home/kenv/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
-    mv appimagetool-x86_64.AppImage /home/kenv/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
+    mkdir -p /home/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
+    mv appimagetool-x86_64.AppImage /home/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
     cd .. && \
-    sudo rm -rf dependencies && \
-    sudo dpkg -r kpkg
+    rm -rf dependencies && \
+    dpkg -r kpkg
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
