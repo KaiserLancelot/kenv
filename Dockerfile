@@ -39,7 +39,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.1/kpkg-0.9.1-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.4/kpkg-0.9.4-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
@@ -53,6 +53,8 @@ RUN mkdir dependencies && \
     -o appimagetool-x86_64.AppImage && \
     mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
     mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.4/pyftsubset -o pyftsubset && \
+    mv pyftsubset /usr/local/bin/pyftsubset && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
