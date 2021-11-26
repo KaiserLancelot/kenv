@@ -56,7 +56,7 @@ RUN mkdir dependencies && \
     mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
     curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.4/pyftsubset -o pyftsubset && \
     mv pyftsubset /usr/local/bin/pyftsubset && \
-    chmod 777 /usr/local/bin/pyftsubset && \
+    chmod 755 /usr/local/bin/pyftsubset && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
