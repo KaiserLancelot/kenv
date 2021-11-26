@@ -45,7 +45,8 @@ RUN mkdir dependencies && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson python && \
+    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson && \
+    kpkg install python && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
     # FIXME
