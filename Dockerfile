@@ -39,13 +39,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.9/kpkg-0.9.9-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.10/kpkg-0.9.10-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc && \
+    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
+    simdutf xxHash && \
     kpkg install python && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
@@ -54,7 +55,7 @@ RUN mkdir dependencies && \
     -o appimagetool-x86_64.AppImage && \
     mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
     mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.9/pyftsubset -o pyftsubset && \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.9.10/pyftsubset -o pyftsubset && \
     mv pyftsubset /usr/local/bin/pyftsubset && \
     chmod 755 /usr/local/bin/pyftsubset && \
     cd .. && \
