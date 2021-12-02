@@ -22,9 +22,15 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
     ln -s /usr/local/bin/gcov /usr/bin/gcov-11 && \
+    ln -s /usr/local/bin/gcc-ar /usr/bin/gcc-ar-11 && \
+    ln -s /usr/local/bin/gcc-nm /usr/bin/gcc-nm-11 && \
+    ln -s /usr/local/bin/gcc-ranlib /usr/bin/gcc-ranlib-11 && \
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 400 && \
     update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 400 && \
     update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 400 && \
+    update-alternatives --install /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-11 400 && \
+    update-alternatives --install /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-11 400 && \
+    update-alternatives --install /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-11 400 && \
     update-alternatives --install /usr/bin/lld lld /usr/bin/lld-13 400 && \
     update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-13 400 && \
     update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-13 400 && \
