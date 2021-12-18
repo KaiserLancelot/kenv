@@ -4,7 +4,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y python3 python-is-python3 sudo \
-    git curl lsb-release software-properties-common fuse \
+    git curl lsb-release software-properties-common fuse patchelf \
     locales locales-all binutils build-essential \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
@@ -56,14 +56,10 @@ RUN mkdir dependencies && \
     kpkg install python && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
-    # FIXME
-    curl -L https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage \
+    curl -L https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage \
     -o appimagetool-x86_64.AppImage && \
-    mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12 && \
-    mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/12/appimagetool-x86_64.AppImage && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.10.0/pyftsubset -o pyftsubset && \
-    mv pyftsubset /usr/local/bin/pyftsubset && \
-    chmod 755 /usr/local/bin/pyftsubset && \
+    mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13 && \
+    mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13/appimagetool-x86_64.AppImage && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
