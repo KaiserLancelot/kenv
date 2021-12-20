@@ -45,14 +45,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.10.2/kpkg-0.10.2-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.10.4/kpkg-0.10.4-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
-    simdutf xxHash mimalloc && \
+    simdutf xxHash mimalloc cmark && \
     kpkg install python && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
