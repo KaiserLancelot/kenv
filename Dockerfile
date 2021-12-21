@@ -5,10 +5,10 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get -y upgrade && \
     apt-get install -y python3 python-is-python3 sudo \
     git curl lsb-release software-properties-common fuse patchelf \
-    locales locales-all binutils build-essential \
+    locales locales-all binutils binutils-dev build-essential \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
-    pkg-config ca-certificates
+    pkg-config ca-certificates libdw-dev libdwarf-dev
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
@@ -45,14 +45,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.10.4/kpkg-0.10.4-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.10.5/kpkg-0.10.5-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
     openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
-    simdutf xxHash mimalloc cmark && \
+    simdutf xxHash mimalloc cmark backward-cpp && \
     kpkg install python && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
