@@ -8,7 +8,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     locales locales-all binutils binutils-dev build-essential \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
-    pkg-config ca-certificates libdw-dev libdwarf-dev
+    pkg-config ca-certificates libdw-dev libdwarf-dev bc
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
@@ -45,7 +45,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.11.8/kpkg-0.11.8-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.12.1/kpkg-0.12.1-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
@@ -56,10 +56,6 @@ RUN mkdir dependencies && \
     kpkg install python && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
-    curl -L https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage \
-    -o appimagetool-x86_64.AppImage && \
-    mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13 && \
-    mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13/appimagetool-x86_64.AppImage && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
