@@ -3,7 +3,7 @@ FROM gcc:11.2.0
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y python3 python-is-python3 python3-dev sudo \
+    apt-get install -y python3 python-is-python3 python3-dev python3-pip sudo \
     git curl lsb-release software-properties-common fuse patchelf \
     locales locales-all binutils binutils-dev build-essential \
     make cmake autoconf automake \
