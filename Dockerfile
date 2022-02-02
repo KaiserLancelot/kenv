@@ -3,7 +3,7 @@ FROM gcc:11.2.0
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y python3 python-is-python3 sudo \
+    apt-get install -y python3 python-is-python3 python3-dev sudo \
     git curl lsb-release software-properties-common fuse patchelf \
     locales locales-all binutils binutils-dev build-essential \
     make cmake autoconf automake \
@@ -53,9 +53,12 @@ RUN mkdir dependencies && \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp && \
-    kpkg install python && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
+    curl -L https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage \
+    -o appimagetool-x86_64.AppImage && \
+    mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13 && \
+    mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13/appimagetool-x86_64.AppImage && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
