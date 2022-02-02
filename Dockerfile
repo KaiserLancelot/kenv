@@ -50,8 +50,8 @@ RUN mkdir dependencies && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
-    openssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    aria2 semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
+    boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
+    semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp && \
     kpkg install python && \
     python3 -m pip install --upgrade pip && \
