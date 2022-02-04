@@ -45,11 +45,11 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.1/kpkg-0.13.1-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.3/kpkg-0.13.3-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
-    kpkg install boost catch2 curl fmt icu libarchive nameof zstd \
+    kpkg install icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp && \
