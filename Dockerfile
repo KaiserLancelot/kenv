@@ -6,7 +6,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y python3 python-is-python3 python3-dev python3-pip sudo \
     git curl lsb-release software-properties-common fuse patchelf \
     locales locales-all binutils binutils-dev build-essential \
-    make cmake autoconf automake \
+    make ninja-build cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc
 
@@ -36,7 +36,6 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-13 400 && \
     update-alternatives --install /usr/bin/llvm-nm llvm-nm /usr/bin/llvm-nm-13 400 && \
     update-alternatives --install /usr/bin/llvm-ranlib llvm-ranlib /usr/bin/llvm-ranlib-13 400 && \
-    update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-13 400 && \
     update-alternatives --install /usr/bin/llvm-profdata llvm-profdata /usr/bin/llvm-profdata-13 400 && \
     update-alternatives --install /usr/bin/llvm-cov llvm-cov /usr/bin/llvm-cov-13 400 && \
     update-alternatives --install /usr/bin/llvm-symbolizer llvm-symbolizer /usr/bin/llvm-symbolizer-13 400 && \
@@ -45,7 +44,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.6/kpkg-0.13.6-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.8/kpkg-0.13.8-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
