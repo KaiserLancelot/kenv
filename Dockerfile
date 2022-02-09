@@ -16,7 +16,7 @@ RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     rm llvm.sh
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y lld-13 clang-tidy-13 llvm-13 && \
+    apt-get install -y lld-13 llvm-13 && \
     rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
