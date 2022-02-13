@@ -44,13 +44,13 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.13/kpkg-0.13.13-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.15/kpkg-0.13.15-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja doxygen lcov && \
     kpkg install icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    semver gsl-lite dbg-macro scope_guard argon2 simdjson opencc \
+    semver gsl dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp llhttp && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install nuitka fonttools[woff] && \
