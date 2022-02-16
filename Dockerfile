@@ -44,11 +44,11 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.15/kpkg-0.13.15-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v0.13.17/kpkg-0.13.17-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
-    kpkg install cmake ninja mold doxygen lcov && \
-    kpkg install icu boost catch2 curl fmt libarchive nameof zstd \
+    kpkg install cmake ninja mold doxygen lcov \
+    icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp llhttp && \
