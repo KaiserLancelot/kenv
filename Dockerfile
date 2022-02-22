@@ -73,6 +73,7 @@ RUN mkdir dependencies && \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp llhttp && \
     update-alternatives --install /usr/bin/cmake cmake /usr/local/bin/cmake 400 && \
+    update-alternatives --install /usr/bin/ctest ctest /usr/local/bin/ctest 400 && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
