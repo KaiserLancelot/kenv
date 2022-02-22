@@ -1,9 +1,9 @@
 FROM gcc:11.2.0
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
-    apt-get -y install tzdata
+    apt-get install -y tzdata
 
-RUN apt-get -y upgrade && \
+RUN apt-get upgrade -y && \
     apt-get install -y python3 python-is-python3 python3-dev python3-pip sudo \
     git curl lsb-release software-properties-common fuse patchelf \
     locales locales-all binutils binutils-dev build-essential \
@@ -72,8 +72,8 @@ RUN mkdir dependencies && \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp llhttp && \
-    update-alternatives --install /usr/bin/cmake cmake /usr/local/bin/cmake 400 && \
-    update-alternatives --install /usr/bin/ctest ctest /usr/local/bin/ctest 400 && \
+    apt-get remove -y cmake && \
+    apt-get autoremove -y && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
