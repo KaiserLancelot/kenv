@@ -7,7 +7,7 @@ RUN apt-get -y upgrade && \
     apt-get install -y python3 python-is-python3 python3-dev python3-pip sudo \
     git curl lsb-release software-properties-common fuse patchelf \
     locales locales-all binutils binutils-dev build-essential \
-    make ninja-build cmake autoconf automake \
+    make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
     perl golang libunwind-dev
@@ -72,6 +72,7 @@ RUN mkdir dependencies && \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc \
     simdutf xxHash mimalloc cmark backward-cpp llhttp && \
+    update-alternatives --install /usr/bin/cmake cmake /usr/local/bin/cmake 400 && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
