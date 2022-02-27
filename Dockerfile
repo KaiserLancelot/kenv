@@ -52,19 +52,19 @@ RUN python3 -m pip install --upgrade pip && \
     mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13/appimagetool-x86_64.AppImage && \
     chmod 755 /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13/appimagetool-x86_64.AppImage
 
-RUN curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.0.0/pyftsubset \
+RUN curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.0.1/pyftsubset \
     -o pyftsubset && \
     mv pyftsubset /usr/local/bin/pyftsubset && \
     chmod 755 /usr/local/bin/pyftsubset
 
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v0.14.9/klib-0.14.9-Linux.deb \
+RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.1.0/klib-1.1.0-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.0.0/kpkg-1.0.0-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.0.1/kpkg-1.0.1-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold doxygen lcov \
