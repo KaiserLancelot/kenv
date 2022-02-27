@@ -70,7 +70,7 @@ RUN mkdir dependencies && \
     kpkg install cmake ninja mold doxygen lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
-    semver gsl dbg-macro scope_guard argon2 simdjson opencc \
+    semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
     simdutf xxHash mimalloc cmark backward-cpp llhttp && \
     apt-get remove -y cmake && \
     apt-get autoremove -y && \
