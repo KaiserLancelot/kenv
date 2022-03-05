@@ -4,8 +4,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get install -y tzdata
 
 RUN apt-get upgrade -y && \
-    apt-get install -y python3 python-is-python3 python3-dev python3-pip sudo \
-    git curl lsb-release software-properties-common fuse patchelf \
+    apt-get install -y python3 python-is-python3 sudo \
+    git curl lsb-release software-properties-common \
     locales locales-all binutils binutils-dev build-essential \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
@@ -44,34 +44,21 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN python3 -m pip install --upgrade pip && \
-    python3 -m pip install nuitka fonttools[woff] && \
-    curl -L https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage \
-    -o appimagetool-x86_64.AppImage && \
-    mkdir -p /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13 && \
-    mv appimagetool-x86_64.AppImage /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13/appimagetool-x86_64.AppImage && \
-    chmod 755 /root/.local/share/Nuitka/appimagetool-x86_64.AppImage/x86_64/13/appimagetool-x86_64.AppImage
-
-RUN curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.1.0/pyftsubset \
-    -o pyftsubset && \
-    mv pyftsubset /usr/local/bin/pyftsubset && \
-    chmod 755 /usr/local/bin/pyftsubset
-
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.1.0/klib-1.1.0-Linux.deb \
+RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.3.1/klib-1.3.1-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.1.0/kpkg-1.1.0-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.2.0/kpkg-1.2.0-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold doxygen lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
-    simdutf xxHash mimalloc cmark backward-cpp llhttp && \
+    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 && \
     apt-get remove -y cmake && \
     apt-get autoremove -y && \
     cd .. && \
