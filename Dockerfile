@@ -54,11 +54,11 @@ RUN mkdir dependencies && \
     curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.2.1/kpkg-1.2.1-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
-    kpkg install woff2 cmake ninja mold doxygen lcov \
+    kpkg install cmake ninja mold doxygen lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
-    simdutf xxHash mimalloc cmark backward-cpp llhttp && \
+    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 && \
     apt-get remove -y cmake && \
     apt-get autoremove -y && \
     cd .. && \
