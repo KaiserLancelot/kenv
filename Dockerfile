@@ -10,7 +10,7 @@ RUN apt-get upgrade -y && \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    perl golang libunwind-dev
+    perl golang libunwind-dev nasm
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
@@ -44,21 +44,21 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.3.1/klib-1.3.1-Linux.deb \
+RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.5.1/klib-1.5.1-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.2.1/kpkg-1.2.1-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.0/kpkg-1.3.0-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold doxygen lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
-    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 && \
+    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libwebp && \
     apt-get remove -y cmake && \
     apt-get autoremove -y && \
     cd .. && \
