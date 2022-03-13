@@ -53,7 +53,7 @@ RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.7.0/klib
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.3/kpkg-1.3.3-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.4/kpkg-1.3.4-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold doxygen lcov \
