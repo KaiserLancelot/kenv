@@ -10,7 +10,7 @@ RUN apt-get upgrade -y && \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    perl golang libunwind-dev nasm zsh
+    perl golang libunwind-dev nasm zsh doxygen upx-ucl
 
 RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"
 
@@ -46,17 +46,17 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.9.1/klib-1.9.1-Linux.deb \
+RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.9.3/klib-1.9.3-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.8/kpkg-1.3.8-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.9/kpkg-1.3.9-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
-    kpkg install cmake ninja mold doxygen lcov \
+    kpkg install cmake ninja mold lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
