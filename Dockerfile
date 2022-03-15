@@ -10,7 +10,7 @@ RUN apt-get upgrade -y && \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    perl golang libunwind-dev nasm zsh doxygen upx-ucl
+    perl golang libunwind-dev nasm zsh doxygen
 
 RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"
 
