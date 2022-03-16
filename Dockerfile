@@ -12,6 +12,9 @@ RUN apt-get upgrade -y && \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
     perl golang libunwind-dev nasm zsh doxygen
 
+RUN python -m pip install --upgrade pip && \
+    python -m pip install cmakelang
+
 RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
