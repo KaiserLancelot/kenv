@@ -8,7 +8,7 @@ RUN apt-get upgrade -y && \
     git curl lsb-release software-properties-common \
     locales locales-all binutils binutils-dev build-essential \
     make cmake autoconf automake \
-    autotools-dev autopoint libtool m4 tcl tk re2c flex bison \
+    autotools-dev autopoint libtool m4 tcl tk re2c \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
     perl golang libunwind-dev nasm zsh doxygen
 
@@ -46,7 +46,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.9.3/klib-1.9.3-Linux.deb \
+RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.10.0/klib-1.10.0-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
