@@ -19,11 +19,8 @@ RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/downloa
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
-    ./llvm.sh 14 && \
-    rm llvm.sh
-
-RUN apt-get install -y lld-14 llvm-14 lldb-14 libunwind-14-dev \
-    clang-tidy-14 clang-format-14 && \
+    ./llvm.sh 14 all && \
+    rm llvm.sh && \
     apt-get clean
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
