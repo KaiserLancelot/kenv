@@ -4,7 +4,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get install -y tzdata
 
 RUN apt-get upgrade -y && \
-    apt-get install -y python3 python-is-python3 sudo \
+    apt-get install -y python3 python-is-python3 python3-pip sudo \
     git curl lsb-release software-properties-common \
     locales locales-all binutils binutils-dev build-essential \
     make cmake autoconf automake \
@@ -16,10 +16,11 @@ RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/downloa
 
 RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
-    ./llvm.sh 13 && \
+    ./llvm.sh 14 && \
     rm llvm.sh
 
-RUN apt-get install -y lld-13 llvm-13 lldb-13 && \
+RUN apt-get install -y lld-14 llvm-14 lldb-14 \
+    clang-tidy-14 clang-format-14 clangd-14 && \
     apt-get clean
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
@@ -34,17 +35,20 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-11 400 && \
     update-alternatives --install /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-11 400 && \
     update-alternatives --install /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-11 400 && \
-    update-alternatives --install /usr/bin/lld lld /usr/bin/lld-13 400 && \
-    update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-13 400 && \
-    update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-13 400 && \
-    update-alternatives --install /usr/bin/llvm-nm llvm-nm /usr/bin/llvm-nm-13 400 && \
-    update-alternatives --install /usr/bin/llvm-ranlib llvm-ranlib /usr/bin/llvm-ranlib-13 400 && \
-    update-alternatives --install /usr/bin/llvm-profdata llvm-profdata /usr/bin/llvm-profdata-13 400 && \
-    update-alternatives --install /usr/bin/llvm-cov llvm-cov /usr/bin/llvm-cov-13 400 && \
-    update-alternatives --install /usr/bin/llvm-symbolizer llvm-symbolizer /usr/bin/llvm-symbolizer-13 400 && \
-    update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-13 400 && \
-    echo "#!/bin/bash\nexec \"/usr/bin/clang-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
-    echo "#!/bin/bash\nexec \"/usr/bin/clang++-13\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
+    update-alternatives --install /usr/bin/lld lld /usr/bin/lld-14 400 && \
+    update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-14 400 && \
+    update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-14 400 && \
+    update-alternatives --install /usr/bin/llvm-nm llvm-nm /usr/bin/llvm-nm-14 400 && \
+    update-alternatives --install /usr/bin/llvm-ranlib llvm-ranlib /usr/bin/llvm-ranlib-14 400 && \
+    update-alternatives --install /usr/bin/llvm-profdata llvm-profdata /usr/bin/llvm-profdata-14 400 && \
+    update-alternatives --install /usr/bin/llvm-cov llvm-cov /usr/bin/llvm-cov-14 400 && \
+    update-alternatives --install /usr/bin/llvm-symbolizer llvm-symbolizer /usr/bin/llvm-symbolizer-14 400 && \
+    update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-14 400 && \
+    update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 400 && \
+    update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-14 400 && \
+    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-14 400 && \
+    echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
+    echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
 RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.10.0/klib-1.10.0-Linux.deb \
     -o klib.deb && \
@@ -53,7 +57,7 @@ RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.10.0/kli
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.9/kpkg-1.3.9-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.10/kpkg-1.3.10-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold lcov \
