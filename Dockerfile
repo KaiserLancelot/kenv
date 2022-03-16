@@ -10,7 +10,7 @@ RUN apt-get upgrade -y && \
     make cmake autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk re2c \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    perl golang libunwind-dev nasm zsh doxygen
+    perl golang nasm zsh doxygen
 
 RUN python -m pip install --upgrade pip && \
     python -m pip install cmakelang
@@ -22,8 +22,8 @@ RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     ./llvm.sh 14 && \
     rm llvm.sh
 
-RUN apt-get install -y lld-14 llvm-14 lldb-14 \
-    clang-tidy-14 clang-format-14 clangd-14 && \
+RUN apt-get install -y lld-14 llvm-14 lldb-14 libunwind-14-dev \
+    clang-tidy-14 clang-format-14 && \
     apt-get clean
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
@@ -49,7 +49,6 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-14 400 && \
     update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 400 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-14 400 && \
-    update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-14 400 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
