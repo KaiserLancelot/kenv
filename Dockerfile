@@ -56,14 +56,15 @@ RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.10.0/kli
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.10/kpkg-1.3.10-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.12/kpkg-1.3.12-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
-    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libwebp && \
+    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libwebp \
+    re2 parallel-hashmap && \
     apt-get remove -y cmake && \
     apt-get autoremove -y && \
     cd .. && \
