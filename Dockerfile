@@ -7,10 +7,10 @@ RUN apt-get upgrade -y && \
     apt-get install -y python3 python-is-python3 python3-pip sudo \
     git curl lsb-release software-properties-common \
     locales locales-all binutils binutils-dev build-essential \
-    make cmake autoconf automake \
-    autotools-dev autopoint libtool m4 tcl tk re2c \
+    make cmake ninja-build autoconf automake \
+    autotools-dev autopoint libtool m4 tcl tk \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    perl golang nasm zsh doxygen
+    nasm zsh doxygen
 
 RUN python -m pip install --upgrade pip && \
     python -m pip install cmakelang
@@ -49,24 +49,22 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.10.0/klib-1.10.0-Linux.deb \
+RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.11.0/klib-1.11.0-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.3.12/kpkg-1.3.12-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.4.2/kpkg-1.4.2-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
-    kpkg install cmake ninja mold lcov \
+    kpkg install mold lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
     simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libwebp \
     re2 parallel-hashmap && \
-    apt-get remove -y cmake && \
-    apt-get autoremove -y && \
     cd .. && \
     rm -rf dependencies
 
