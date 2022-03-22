@@ -73,5 +73,5 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 ENV CMAKE_GENERATOR Ninja
-ENV ASAN_OPTIONS detect_stack_use_after_return=1
+ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
