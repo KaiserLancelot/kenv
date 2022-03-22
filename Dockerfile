@@ -56,7 +56,7 @@ RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.11.0/kli
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.2/kpkg-1.5.2-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.3/kpkg-1.5.3-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
