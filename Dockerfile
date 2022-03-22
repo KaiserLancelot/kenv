@@ -7,7 +7,7 @@ RUN apt-get upgrade -y && \
     apt-get install -y python3 python-is-python3 python3-pip sudo \
     git curl lsb-release software-properties-common \
     locales locales-all binutils binutils-dev build-essential \
-    make cmake ninja-build autoconf automake \
+    make cmake ninja-build autoconf automake meson \
     autotools-dev autopoint libtool m4 tcl tk \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
     nasm zsh doxygen zip unzip p7zip-full
@@ -56,14 +56,14 @@ RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.11.0/kli
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.4.2/kpkg-1.4.2-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.0/kpkg-1.5.0-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
-    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libwebp \
+    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libvips \
     re2 parallel-hashmap && \
     cd .. && \
     rm -rf dependencies
