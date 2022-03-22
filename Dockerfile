@@ -10,7 +10,7 @@ RUN apt-get upgrade -y && \
     make cmake ninja-build autoconf automake \
     autotools-dev autopoint libtool m4 tcl tk \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    nasm zsh doxygen
+    nasm zsh doxygen zip unzip p7zip-full rar unrar
 
 RUN python -m pip install --upgrade pip && \
     python -m pip install cmakelang
