@@ -10,7 +10,7 @@ RUN apt-get upgrade -y && \
     make cmake ninja-build autoconf automake meson \
     autotools-dev autopoint libtool m4 tcl tk \
     pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    nasm zsh doxygen zip unzip p7zip-full
+    nasm zsh doxygen zip unzip p7zip-full linux-perf-5.10 autofdo
 
 RUN python -m pip install --upgrade pip && \
     python -m pip install cmakelang
@@ -23,7 +23,9 @@ RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
     rm llvm.sh && \
     apt-get clean
 
-RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
+RUN cp /usr/bin/perf_5.10 /usr/bin/perf_5.11 && \
+    cp /usr/bin/perf_5.10 /usr/bin/perf_5.13 && \
+    ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
     ln -s /usr/local/bin/gcov /usr/bin/gcov-11 && \
     ln -s /usr/local/bin/gcc-ar /usr/bin/gcc-ar-11 && \
@@ -49,14 +51,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.11.0/klib-1.11.0-Linux.deb \
+RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.12.2/klib-1.12.2-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.8/kpkg-1.5.8-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.9/kpkg-1.5.9-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
