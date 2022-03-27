@@ -4,24 +4,41 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get install -y tzdata
 
 RUN apt-get upgrade -y && \
-    apt-get install -y python3 python-is-python3 python3-pip sudo \
-    git curl lsb-release software-properties-common \
-    locales locales-all binutils binutils-dev build-essential \
-    make cmake ninja-build autoconf automake meson \
-    autotools-dev autopoint libtool m4 tcl tk \
-    pkg-config ca-certificates libdw-dev libdwarf-dev bc gdb tar rsync dos2unix \
-    nasm zsh doxygen zip unzip p7zip-full
+    apt-get install -y sudo \
+    git \
+    locales locales-all rsync dos2unix \
+    tar zip unzip p7zip-full \
+    ca-certificates curl \
+    build-essential binutils binutils-dev \
+    nasm make ninja-build cmake meson \
+    autoconf automake autotools-dev autopoint m4 libtool pkg-config \
+    tcl tk bc libdw-dev libdwarf-dev \
+    gdb doxygen && \
+    locale-gen en_US.UTF-8
 
-RUN python -m pip install --upgrade pip && \
+RUN apt-get install -y python3 python-is-python3 python3-pip && \
+    python -m pip install --upgrade pip && \
     python -m pip install cmakelang
 
-RUN sh -c "$(curl -fsSL https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"
-
-RUN curl -L https://apt.llvm.org/llvm.sh -o llvm.sh && \
+RUN apt-get install -y lsb-release software-properties-common && \
+    curl -fsSL https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
     ./llvm.sh 14 all && \
-    rm llvm.sh && \
-    apt-get clean
+    rm llvm.sh
+
+RUN apt-get install -y zsh && \
+    curl -fsSL https://starship.rs/install.sh -o install.sh && \
+    chmod +x install.sh && \
+    ./install.sh -y && \
+    rm ./install.sh && \
+    mkdir ~/.config && \
+    mkdir ~/.zsh && \
+    curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/9f9337713db78ee9961c6827d8e7c0bde1c53402/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml && \
+    source ~/.zshrc
+
+RUN apt-get clean
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
@@ -56,7 +73,7 @@ RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.12.4/kli
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.9/kpkg-1.5.9-Linux.deb \
+    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.10/kpkg-1.5.10-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
@@ -66,7 +83,8 @@ RUN mkdir dependencies && \
     simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libvips \
     re2 parallel-hashmap && \
     cd .. && \
-    rm -rf dependencies
+    rm -rf dependencies && \
+    dpkg -r kpkg
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
