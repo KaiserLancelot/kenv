@@ -67,14 +67,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.4/klib-1.12.4-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.5/klib-1.12.5-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.10/kpkg-1.5.10-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.11/kpkg-1.5.11-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
@@ -94,5 +94,3 @@ ENV LANGUAGE en_US.UTF-8
 ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
-
-ENTRYPOINT [ "/usr/bin/zsh" ]
