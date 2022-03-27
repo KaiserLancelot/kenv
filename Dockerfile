@@ -2,7 +2,7 @@ FROM gcc:11.2.0
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y tzdata sudo vim \
+    apt-get install -y tzdata sudo neovim \
     git \
     locales locales-all rsync dos2unix \
     tar zip unzip p7zip-full \
