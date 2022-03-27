@@ -32,7 +32,7 @@ RUN apt-get install -y zsh && \
     mkdir ~/.config && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/17c0ae07766436ba7b201d3f5446c5620eddd74d/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/148760457caeae06eff9c662483f558006a63b84/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml
 
 SHELL ["/usr/bin/zsh", "-c"]
@@ -92,5 +92,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 ENV CMAKE_GENERATOR Ninja
-ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
+ENV ASAN_OPTIONS detect_odr_violation=0:detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
+
+ENTRYPOINT [ "/usr/bin/zsh" ]
