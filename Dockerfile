@@ -36,7 +36,7 @@ RUN apt-get install -y zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/9f9337713db78ee9961c6827d8e7c0bde1c53402/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml && \
-    source ~/.zshrc
+    exec zsh
 
 RUN apt-get clean
 
@@ -93,3 +93,5 @@ ENV LANGUAGE en_US.UTF-8
 ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
+
+ENTRYPOINT [ "/usr/bin/zsh" ]
