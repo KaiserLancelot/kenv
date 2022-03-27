@@ -1,10 +1,8 @@
 FROM gcc:11.2.0
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
-    apt-get install -y tzdata
-
-RUN apt-get upgrade -y && \
-    apt-get install -y sudo \
+    apt-get upgrade -y && \
+    apt-get install -y tzdata sudo \
     git \
     locales locales-all rsync dos2unix \
     tar zip unzip p7zip-full \
@@ -36,7 +34,7 @@ RUN apt-get install -y zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/9f9337713db78ee9961c6827d8e7c0bde1c53402/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml && \
-    exec zsh
+    zsh
 
 RUN apt-get clean
 
@@ -66,14 +64,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -L https://github.com/KaiserLancelot/klib/releases/download/v1.12.4/klib-1.12.4-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.4/klib-1.12.4-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -L https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.10/kpkg-1.5.10-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.10/kpkg-1.5.10-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
