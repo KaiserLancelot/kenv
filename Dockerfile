@@ -33,9 +33,11 @@ RUN apt-get install -y zsh && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/17c0ae07766436ba7b201d3f5446c5620eddd74d/.zshrc > ~/.zshrc && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml && \
-    zsh && \
-    source ~/.zshrc
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml
+
+SHELL ["/usr/bin/zsh", "-c"]
+
+RUN source ~/.zshrc
 
 RUN apt-get clean
 
