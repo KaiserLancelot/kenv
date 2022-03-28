@@ -74,14 +74,14 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.5/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.5.11/kpkg-1.5.11-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.6.0/kpkg-1.6.0-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
     icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
-    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libvips \
+    simdutf xxHash mimalloc cmark backward-cpp llhttp woff2 libvips highway \
     re2 parallel-hashmap && \
     cd .. && \
     rm -rf dependencies && \
