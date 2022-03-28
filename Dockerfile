@@ -67,14 +67,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.5/klib-1.12.5-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.7/klib-1.12.7-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.6.0/kpkg-1.6.0-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.6.1/kpkg-1.6.1-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
