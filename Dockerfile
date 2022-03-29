@@ -42,8 +42,9 @@ RUN apt-get install -y zsh && \
 
 SHELL ["/usr/bin/zsh", "-c"]
 
-RUN source ~/.zshrc && \
-    source ~/.cargo/env
+RUN source ~/.zshrc
+
+RUN source ~/.cargo/env
 
 RUN apt-get clean
 
@@ -73,7 +74,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.7/klib-1.12.7-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.13.0/klib-1.13.0-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
