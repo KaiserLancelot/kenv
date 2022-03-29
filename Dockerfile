@@ -2,7 +2,7 @@ FROM gcc:11.2.0
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y tzdata sudo neovim \
+    apt-get install -y sudo neovim \
     git \
     locales locales-all rsync dos2unix \
     tar zip unzip p7zip-full \
@@ -13,6 +13,12 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     tcl tk bc libdw-dev libdwarf-dev \
     gdb doxygen && \
     locale-gen en_US.UTF-8
+
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+ENV CMAKE_GENERATOR Ninja
 
 RUN apt-get install -y python3 python-is-python3 python3-pip && \
     python -m pip install --upgrade pip && \
@@ -28,6 +34,8 @@ RUN curl -fsSL https://sh.rustup.rs -o rustup.sh && \
     chmod +x rustup.sh && \
     ./rustup.sh -y && \
     rm ./rustup.sh
+
+ENV PATH "$HOME/.cargo/bin:$PATH"
 
 RUN apt-get install -y zsh && \
     curl -fsSL https://starship.rs/install.sh -o install.sh && \
@@ -92,13 +100,6 @@ RUN mkdir dependencies && \
     rm -rf dependencies && \
     dpkg -r kpkg
 
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-
-ENV PATH "~/.cargo/bin:${PATH}"
-
-ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
 
