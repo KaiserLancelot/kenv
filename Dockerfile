@@ -30,14 +30,12 @@ RUN apt-get install -y lsb-release software-properties-common && \
     ./llvm.sh 14 all && \
     rm llvm.sh
 
-ENV RUSTUP_HOME "/usr/local/rustup"
-ENV CARGO_HOME "/usr/local/cargo"
-ENV PATH "/usr/local/cargo/bin:$PATH"
-
 RUN curl -fsSL https://sh.rustup.rs -o rustup-init.sh && \
     chmod +x rustup-init.sh && \
     ./rustup-init.sh -y --no-modify-path && \
     rm rustup-init.sh
+
+ENV PATH "/root/.cargo/bin:$PATH"
 
 RUN apt-get install -y zsh && \
     curl -fsSL https://starship.rs/install.sh -o install.sh && \
