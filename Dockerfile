@@ -30,18 +30,20 @@ RUN apt-get install -y lsb-release software-properties-common && \
     ./llvm.sh 14 all && \
     rm llvm.sh
 
-RUN curl -fsSL https://sh.rustup.rs -o rustup.sh && \
-    chmod +x rustup.sh && \
-    ./rustup.sh -y && \
-    rm ./rustup.sh
+ENV RUSTUP_HOME "/usr/local/rustup"
+ENV CARGO_HOME "/usr/local/cargo"
+ENV PATH "/usr/local/cargo/bin:$PATH"
 
-ENV PATH "$HOME/.cargo/bin:$PATH"
+RUN curl -fsSL https://sh.rustup.rs -o rustup-init.sh && \
+    chmod +x rustup-init.sh && \
+    ./rustup-init.sh -y --no-modify-path && \
+    rm rustup-init.sh
 
 RUN apt-get install -y zsh && \
     curl -fsSL https://starship.rs/install.sh -o install.sh && \
     chmod +x install.sh && \
     ./install.sh -y && \
-    rm ./install.sh && \
+    rm install.sh && \
     mkdir ~/.config && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
