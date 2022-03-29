@@ -24,6 +24,11 @@ RUN apt-get install -y lsb-release software-properties-common && \
     ./llvm.sh 14 all && \
     rm llvm.sh
 
+RUN curl -fsSL https://sh.rustup.rs -o rustup.sh && \
+    chmod +x rustup.sh && \
+    ./rustup.sh -y && \
+    rm ./rustup.sh
+
 RUN apt-get install -y zsh && \
     curl -fsSL https://starship.rs/install.sh -o install.sh && \
     chmod +x install.sh && \
@@ -32,7 +37,7 @@ RUN apt-get install -y zsh && \
     mkdir ~/.config && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/3b0030ee892b237be0eca7f14d7ad7975fdee0ff/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/06a2435e78c1f5213ebea5b700ea5064d23d4d0a/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml
 
 SHELL ["/usr/bin/zsh", "-c"]
@@ -74,7 +79,7 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.12.7/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.6.1/kpkg-1.6.1-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.6.2/kpkg-1.6.2-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
