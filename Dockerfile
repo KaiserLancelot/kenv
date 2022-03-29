@@ -77,8 +77,8 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-14 400 && \
     update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 400 && \
     update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-14 400 && \
-    echo "#!/usr/bin/sh\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
-    echo "#!/usr/bin/sh\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
+    echo "#!/bin/sh\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
+    echo "#!/bin/sh\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
 RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.13.1/klib-1.13.1-Linux.deb \
     -o klib.deb && \
