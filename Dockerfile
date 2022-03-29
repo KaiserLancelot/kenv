@@ -37,14 +37,12 @@ RUN apt-get install -y zsh && \
     mkdir ~/.config && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/06a2435e78c1f5213ebea5b700ea5064d23d4d0a/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/b74ab4df35d6ab62db45ce0ac624a818c1bcf432/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml
 
 SHELL ["/usr/bin/zsh", "-c"]
 
 RUN source ~/.zshrc
-
-RUN source ~/.cargo/env
 
 RUN apt-get clean
 
@@ -97,6 +95,8 @@ RUN mkdir dependencies && \
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
+
+ENV PATH "~/.cargo/bin:${PATH}"
 
 ENV CMAKE_GENERATOR Ninja
 ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
