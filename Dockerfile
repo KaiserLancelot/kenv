@@ -42,7 +42,8 @@ RUN apt-get install -y zsh && \
 
 SHELL ["/usr/bin/zsh", "-c"]
 
-RUN source ~/.zshrc
+RUN source ~/.zshrc && \
+    source ~/.cargo/env
 
 RUN apt-get clean
 
