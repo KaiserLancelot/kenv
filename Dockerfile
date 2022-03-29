@@ -4,7 +4,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y sudo neovim \
     git \
-    locales locales-all rsync dos2unix \
+    locales locales-all rsync \
     tar zip unzip p7zip-full \
     ca-certificates curl \
     build-essential binutils binutils-dev \
@@ -51,8 +51,6 @@ RUN apt-get install -y zsh && \
 SHELL ["/usr/bin/zsh", "-c"]
 
 RUN source ~/.zshrc
-
-RUN apt-get clean
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
