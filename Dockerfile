@@ -30,12 +30,14 @@ RUN apt-get install -y lsb-release software-properties-common && \
     ./llvm.sh 14 all && \
     rm llvm.sh
 
+ENV RUSTUP_HOME "/usr/local/rustup"
+ENV CARGO_HOME "/usr/local/cargo"
+ENV PATH "/usr/local/cargo/bin:$PATH"
+
 RUN curl -fsSL https://sh.rustup.rs -o rustup-init.sh && \
     chmod +x rustup-init.sh && \
     ./rustup-init.sh -y --no-modify-path && \
     rm rustup-init.sh
-
-ENV PATH "/root/.cargo/bin:$PATH"
 
 RUN apt-get install -y zsh && \
     curl -fsSL https://starship.rs/install.sh -o install.sh && \
@@ -45,7 +47,7 @@ RUN apt-get install -y zsh && \
     mkdir ~/.config && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/b74ab4df35d6ab62db45ce0ac624a818c1bcf432/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/a46848839861aa4673e274d3eefd696b8050613c/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/18ede3d1e1a49bf5dd69104407c1539f0c285eac/starship.toml > ~/.config/starship.toml
 
 SHELL ["/usr/bin/zsh", "-c"]
