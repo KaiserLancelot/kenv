@@ -5,7 +5,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get install -y sudo neovim \
     git \
     locales locales-all rsync \
-    tar zip unzip p7zip-full \
+    tar gzip zip unzip p7zip-full \
     ca-certificates curl \
     build-essential binutils binutils-dev \
     nasm make ninja-build cmake meson \
