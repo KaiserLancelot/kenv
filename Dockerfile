@@ -24,7 +24,7 @@ RUN apt-get install -y python3 python-is-python3 python3-pip && \
     python -m pip install --upgrade pip && \
     python -m pip install cmakelang
 
-RUN apt-get install -y lsb-release software-properties-common && \
+RUN apt-get install -y lsb-release wget software-properties-common && \
     curl -fsSL https://apt.llvm.org/llvm.sh -o llvm.sh && \
     chmod +x llvm.sh && \
     ./llvm.sh 14 all && \
