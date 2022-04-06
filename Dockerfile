@@ -87,7 +87,7 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.16.2/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.9.3/kpkg-1.9.3-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.9.4/kpkg-1.9.4-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
