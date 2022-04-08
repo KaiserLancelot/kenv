@@ -46,7 +46,7 @@ RUN apt-get install -y zsh && \
     rm install.sh && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/759051011f1898134f3d051651393dce439e3391/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/b329ec7d125ef641007404fa8bfed762935af48d/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/7b0b26f3a52320a33794fb4161d4457f2a2a7462/.starship.toml > ~/.starship.toml
 
 SHELL ["/usr/bin/zsh", "-c"]
