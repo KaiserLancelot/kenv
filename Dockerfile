@@ -33,6 +33,7 @@ RUN apt-get install -y lsb-release wget software-properties-common && \
 ENV RUSTUP_HOME "/usr/local/rustup"
 ENV CARGO_HOME "/usr/local/cargo"
 ENV PATH "/usr/local/cargo/bin:$PATH"
+ENV RUSTFLAGS "-C target-feature=+aes -C target-cpu=haswell"
 
 RUN curl -fsSL https://sh.rustup.rs -o rustup-init.sh && \
     chmod +x rustup-init.sh && \
@@ -87,7 +88,7 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.18.0/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.10.1/kpkg-1.10.1-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.10.2/kpkg-1.10.2-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
@@ -99,6 +100,8 @@ RUN mkdir dependencies && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
+
+RUN cargo install cargo-audit cargo-outdated grcov
 
 ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
