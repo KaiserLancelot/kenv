@@ -33,7 +33,6 @@ RUN apt-get install -y lsb-release wget software-properties-common && \
 ENV RUSTUP_HOME "/usr/local/rustup"
 ENV CARGO_HOME "/usr/local/cargo"
 ENV PATH "/usr/local/cargo/bin:$PATH"
-ENV RUSTFLAGS "-C target-feature=+aes -C target-cpu=haswell"
 
 RUN curl -fsSL https://sh.rustup.rs -o rustup-init.sh && \
     chmod +x rustup-init.sh && \
@@ -81,14 +80,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.18.0/klib-1.18.0-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.18.1/klib-1.18.1-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.10.2/kpkg-1.10.2-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.10.3/kpkg-1.10.3-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
@@ -101,7 +100,8 @@ RUN mkdir dependencies && \
     rm -rf dependencies && \
     dpkg -r kpkg
 
-RUN cargo install cargo-audit cargo-outdated grcov
+RUN cargo install cargo-audit cargo-outdated cargo-cache grcov && \
+    cargo cache -r all
 
 ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
