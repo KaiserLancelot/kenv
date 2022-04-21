@@ -7,7 +7,7 @@
 
 ---
 
-A development environment for C++ and Rust
+A development environment for C++
 
 ---
 

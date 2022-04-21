@@ -30,15 +30,6 @@ RUN apt-get install -y lsb-release wget software-properties-common && \
     ./llvm.sh 14 all && \
     rm llvm.sh
 
-ENV RUSTUP_HOME "/usr/local/rustup"
-ENV CARGO_HOME "/usr/local/cargo"
-ENV PATH "/usr/local/cargo/bin:$PATH"
-
-RUN curl -fsSL https://sh.rustup.rs -o rustup-init.sh && \
-    chmod +x rustup-init.sh && \
-    ./rustup-init.sh -y --no-modify-path && \
-    rm rustup-init.sh
-
 RUN apt-get install -y zsh && \
     curl -fsSL https://starship.rs/install.sh -o install.sh && \
     chmod +x install.sh && \
@@ -87,7 +78,7 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.18.1/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.10.3/kpkg-1.10.3-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.10.4/kpkg-1.10.4-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
@@ -99,9 +90,6 @@ RUN mkdir dependencies && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
-
-RUN cargo install cargo-audit cargo-outdated cargo-cache grcov && \
-    cargo cache -r all
 
 ENV ASAN_OPTIONS detect_stack_use_after_return=1:fast_unwind_on_malloc=0
 ENV UBSAN_OPTIONS print_stacktrace=1
