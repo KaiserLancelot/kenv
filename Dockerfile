@@ -1,4 +1,4 @@
-FROM gcc:11.2.0
+FROM gcc:11
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get upgrade -y && \
@@ -71,7 +71,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.18.1/klib-1.18.1-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.18.2/klib-1.18.2-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
