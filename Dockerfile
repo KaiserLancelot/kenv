@@ -1,4 +1,4 @@
-FROM gcc:11.3.0
+FROM gcc:12.1.0
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     apt-get upgrade -y && \
@@ -45,18 +45,18 @@ SHELL ["/usr/bin/zsh", "-c"]
 RUN source ~/.zshrc && \
     mkdir -p $ZSH_CACHE_DIR/completions
 
-RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
-    ln -s /usr/local/bin/g++ /usr/bin/g++-11 && \
-    ln -s /usr/local/bin/gcov /usr/bin/gcov-11 && \
-    ln -s /usr/local/bin/gcc-ar /usr/bin/gcc-ar-11 && \
-    ln -s /usr/local/bin/gcc-nm /usr/bin/gcc-nm-11 && \
-    ln -s /usr/local/bin/gcc-ranlib /usr/bin/gcc-ranlib-11 && \
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 400 && \
-    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 400 && \
-    update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-11 400 && \
-    update-alternatives --install /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-11 400 && \
-    update-alternatives --install /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-11 400 && \
-    update-alternatives --install /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-11 400 && \
+RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-12 && \
+    ln -s /usr/local/bin/g++ /usr/bin/g++-12 && \
+    ln -s /usr/local/bin/gcov /usr/bin/gcov-12 && \
+    ln -s /usr/local/bin/gcc-ar /usr/bin/gcc-ar-12 && \
+    ln -s /usr/local/bin/gcc-nm /usr/bin/gcc-nm-12 && \
+    ln -s /usr/local/bin/gcc-ranlib /usr/bin/gcc-ranlib-12 && \
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 400 && \
+    update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 400 && \
+    update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-12 400 && \
+    update-alternatives --install /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-12 400 && \
+    update-alternatives --install /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-12 400 && \
+    update-alternatives --install /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-12 400 && \
     update-alternatives --install /usr/bin/lld lld /usr/bin/lld-14 400 && \
     update-alternatives --install /usr/bin/ld.lld ld.lld /usr/bin/ld.lld-14 400 && \
     update-alternatives --install /usr/bin/llvm-ar llvm-ar /usr/bin/llvm-ar-14 400 && \
@@ -71,14 +71,14 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-11 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.20.0/klib-1.20.0-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.21.0/klib-1.21.0-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.11.1/kpkg-1.11.1-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.12.0/kpkg-1.12.0-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install mold lcov \
