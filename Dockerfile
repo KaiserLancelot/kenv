@@ -37,7 +37,7 @@ RUN apt-get install -y zsh && \
     rm install.sh && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/0ed901939e7c8f506e89aaacba3468003493e378/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/03a4885d3c1c78973294b02d514d2bccbfaea4e6/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/7b0b26f3a52320a33794fb4161d4457f2a2a7462/.starship.toml > ~/.starship.toml
 
 SHELL ["/usr/bin/zsh", "-c"]
@@ -71,7 +71,7 @@ RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-12 && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang && chmod +x /usr/bin/clang && \
     echo "#!/bin/bash\nexec \"/usr/bin/clang++-14\" \"--gcc-toolchain=/usr/local\" \"\$@\"" | tee /usr/bin/clang++ && chmod +x /usr/bin/clang++
 
-RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.22.1/klib-1.22.1-Linux.deb \
+RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.22.2/klib-1.22.2-Linux.deb \
     -o klib.deb && \
     dpkg -i klib.deb && \
     rm klib.deb
