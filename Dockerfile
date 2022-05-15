@@ -37,13 +37,12 @@ RUN apt-get install -y zsh && \
     rm install.sh && \
     mkdir ~/.zsh && \
     curl -fsSL git.io/antigen > ~/.zsh/antigen.zsh && \
-    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/e2c5aad39977f1bd84118a720d6b4e0dbba68cab/.zshrc > ~/.zshrc && \
+    curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/0f2ea5617f6bc30fc3f4b78dcbdeafcd/raw/30dca355a6794f170b6ce446e7350ad7acea7707/.zshrc > ~/.zshrc && \
     curl -fsSL https://gist.githubusercontent.com/KaiserLancelot/f5b842eb3f06b1d60733aad5b8ff1baa/raw/7b0b26f3a52320a33794fb4161d4457f2a2a7462/.starship.toml > ~/.starship.toml
 
 SHELL ["/usr/bin/zsh", "-c"]
 
-RUN source ~/.zshrc && \
-    mkdir -p $ZSH_CACHE_DIR/completions
+RUN source ~/.zshrc
 
 RUN ln -s /usr/local/bin/gcc /usr/bin/gcc-12 && \
     ln -s /usr/local/bin/g++ /usr/bin/g++-12 && \
