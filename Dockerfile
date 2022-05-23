@@ -9,7 +9,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     tar gzip zip unzip p7zip-full \
     ca-certificates curl \
     build-essential binutils binutils-dev \
-    nasm make ninja-build cmake meson \
+    nasm make meson \
     autoconf automake autotools-dev autopoint m4 libtool pkg-config \
     tcl tk bc libdw-dev libdwarf-dev \
     gdb doxygen && \
@@ -18,8 +18,6 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
-
-ENV CMAKE_GENERATOR Ninja
 
 RUN apt-get install -y python3 python-is-python3 python3-pip && \
     python -m pip install --upgrade pip && \
@@ -78,11 +76,15 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.22.2/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.12.3/kpkg-1.12.3-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.13.0/kpkg-1.13.0-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
-    kpkg install mold lcov \
-    icu boost catch2 curl fmt libarchive nameof zstd \
+    kpkg install cmake ninja mold lcov
+
+ENV CMAKE_GENERATOR Ninja
+
+RUN cd dependencies && \
+    kpkg install icu boost catch2 curl fmt libarchive nameof zstd \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
     simdutf xxHash mimalloc cmark backward-cpp woff2 libvips highway \
