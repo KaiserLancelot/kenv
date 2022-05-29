@@ -9,7 +9,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get update && \
     tar gzip zip unzip p7zip-full \
     ca-certificates curl \
     build-essential binutils binutils-dev \
-    nasm make meson \
+    nasm make \
     autoconf automake autotools-dev autopoint m4 libtool pkg-config \
     tcl tk bc libdw-dev libdwarf-dev \
     gdb doxygen && \
@@ -21,7 +21,7 @@ ENV LC_ALL en_US.UTF-8
 
 RUN apt-get install -y python3 python-is-python3 python3-pip && \
     python -m pip install --upgrade pip && \
-    python -m pip install cmakelang
+    python -m pip install cmakelang meson
 
 RUN apt-get install -y lsb-release wget software-properties-common && \
     curl -fsSL https://apt.llvm.org/llvm.sh -o llvm.sh && \
