@@ -76,7 +76,7 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.22.7/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.13.4/kpkg-1.13.4-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.14.0/kpkg-1.14.0-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold lcov
@@ -88,7 +88,7 @@ RUN cd dependencies && \
     boringssl spdlog sqlcipher tidy-html5 pugixml onetbb cli11 indicators \
     semver gsl dbg-macro scope_guard argon2 simdjson opencc utfcpp \
     simdutf xxHash mimalloc cmark backward-cpp woff2 libvips highway \
-    re2 parallel-hashmap libqrencode libmagic && \
+    re2 parallel-hashmap libqrencode libmagic cpp-httplib && \
     cd .. && \
     rm -rf dependencies && \
     dpkg -r kpkg
