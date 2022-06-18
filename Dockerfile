@@ -76,7 +76,7 @@ RUN curl -fsSL https://github.com/KaiserLancelot/klib/releases/download/v1.24.0/
 
 RUN mkdir dependencies && \
     cd dependencies && \
-    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.14.0/kpkg-1.14.0-Linux.deb \
+    curl -fsSL https://github.com/KaiserLancelot/kpkg/releases/download/v1.14.1/kpkg-1.14.1-Linux.deb \
     -o kpkg.deb && \
     dpkg -i kpkg.deb && \
     kpkg install cmake ninja mold lcov
